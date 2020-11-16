@@ -126,15 +126,15 @@ final class RunListenerAdapter
                     break;
                 case FAILED:
                     String reason = safeGetMessage( testExecutionResult.getThrowable().orElse( null ) );
+                    SimpleReportEntry reportEntry = createReportEntry( testIdentifier, testExecutionResult, 
+                            reason, elapsed );
                     if ( isAssertionError )
                     {
-                        runListener.testFailed( createReportEntry( testIdentifier, testExecutionResult, 
-                                reason, elapsed ) );
+                        runListener.testFailed( reportEntry );
                     }
                     else
                     {
-                        runListener.testError( createReportEntry( testIdentifier, testExecutionResult, 
-                                reason, elapsed ) );
+                        runListener.testError( reportEntry );
                     }
                     if ( isClass || isRootContainer )
                     {
